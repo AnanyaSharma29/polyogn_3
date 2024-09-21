@@ -1,59 +1,60 @@
-pragma circom 2.0.0;
+pragma circom 2.0.0; 
 
-/*This circuit template checks that c is the multiplication of a and b.*/  
+template ananyanode () 
+{  
 
-template Multiplier2 () {  
-   // signal inputs
-   signal input a;
-   signal input b;
+    //signal inputs
+    signal input a;  
+    signal input b; 
 
-   // signals from gates
-   signal x;
-   signal y;
+    //signals from gates
+    signal x;  
+    signal y; 
 
-   // final signal output
-   signal output q;
+    //final signal output
+    signal output Q; 
+    
 
-   // component gates used to create Multiplier2
-   component andGate = AND();
-   component notGate = NOT();
-   component orGate = OR();
+    //component gate used to create custom circuit
+     component andGate = AND();
+     component notGate = NOT();
+     component orGate = OR();
 
-   // circuit logic
-   andGate.a <== a;
-   andGate.b <== b;
-   notGate.in <== b;
-   x <== andGate.out;
-   y <== notGate.out;
+    //circuit logic
+    andGate.A <== a;
+    andGate.B <== b;
+    x <== andGate.out;
+  
+    notGate.A <== b;
+    y <== notGate.out;
 
-   orGate.a <== x;
-   orGate.b <== y;
-   q <==orGate.out; 
-   
-
-  }
+    orGate.A <==x;
+    orGate.B <==y;
+    Q <== orGate.out; 
+    
+}
 
 template AND() {
-    signal input a;
-    signal input b;
-    signal output out;
+  signal input A;
+  signal input B;
+  signal output out;
 
-    out <== a*b;
+  out <== A * B;
 }
 
 template NOT() {
-    signal input in;
-    signal output out;
+  signal input A;
+  signal output out;
 
-    out <== 1 + in - 2*in;
+  out <== 1 + A - 2 * A;
 }
 
 template OR() {
-    signal input a;
-    signal input b;
-    signal output out;
+  signal input A;
+  signal input B;
+  signal output out;
 
-    out <== a + b - a*b;
+  out <== A + B - A * B;
 }
 
-component main = Multiplier2();
+component main = ananyanode ();
